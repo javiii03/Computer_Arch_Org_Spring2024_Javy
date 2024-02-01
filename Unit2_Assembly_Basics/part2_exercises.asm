@@ -1,5 +1,5 @@
 ; Base Author: Megan Avery Spring 2024
-; Exercise Author: [YOUR NAME HERE]
+; Exercise Author: [Javier Rodriguez]
 ; 
 ; Purpose - to learn about the following:
 ;	-  directives (dx, resx, & times)
@@ -10,11 +10,30 @@
 
 %include "asm_io.inc"
 
+age equ 30 ; symbol
+%define fav_nunmber 14 ; macro
+
 ; initialized data
 segment .data
+fav_color db "purple", 0  ; string
+least_fav_color db "yellow", 0
+number dd 116 ; integer
+letter db "A" ; character
+hello_world db "Hello World!", 0 ; hello world
+
+start_initial_ascii dd 74
+
+char_prompt db "Enter a character: ", 0
+int_prompt db "Enter an integer: ", 0
+
+many_numbers times 15 dd 34
+z_table times 5 db "Z"
+
 
 ; uninitialized data
 segment .bss
+space_for_int resd 1 ; space for 1 integer
+
 
 
 segment .text
@@ -23,7 +42,40 @@ asm_main:
         enter   0,0               ; setup routine
         pusha
 
-		; TODO: add code
+        dump_mem 1, z_table, 0
+        call print_nl
+        dump_mem 2, z_table + 3, 0
+
+	; mov eax, [number] ; eax = 116
+        ; mov dword [number], 32
+
+        ;mov eax, [number]
+        ; call print_int
+        ; call print_char
+
+        ; mov eax, [start_initial_ascii]
+        ; call print_int
+        ; call print_nl
+        ; call print_char
+
+        ; dump_mem 1, fav_color, 0
+
+        ; call print_nl
+        ; mov eax, fav_color + 3 ; skips the first 3 letters
+        ; call print_string
+
+        ; mov eax, hello_world
+        ; call print_string
+        ; call print_nl
+        ; dump_mem 1, hello_world, 0
+
+        ; mov eax, char_prompt
+        ; call print_string
+        ; call read_char
+
+        ; mov eax, int_prompt
+        ; call print_string
+        ; call read_int
 
         popa
         mov     eax, 0            ; return back to C
